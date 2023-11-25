@@ -240,7 +240,7 @@ def download_video(url, user_name):
     os.system(f"yt-dlp --netrc-cmd '' -f 'bv*[height=480]+ba' --extractor-retries infinite -P videos/{user_name} {url}")
     #os.system(f"yt-dlp -f 'bv*[height=480]+ba' --extractor-retries infinite -P videos/{user_name} {url}")
 
-def dl_videos(video_list, user_name, max_threads=15):
+def dl_videos(video_list, user_name, max_threads=45):
     vl = []
     print(f"Video List for {user_name} is {video_list}")
     for i in video_list:
@@ -260,7 +260,7 @@ def dl_videos(video_list, user_name, max_threads=15):
                 for v in video_list[i*max_threads:len(video_list)-1]:
                     manage_db.set_video_downloaded(conn, manage_db.get_table_name(user_name), v, {'downloaded_yet': 1})
 
-def thread_get_streamer(streamer_list, max_threads=10):
+def thread_get_streamer(streamer_list, max_threads=45):
     with concurrent.futures.ThreadPoolExecutor(max_workers=max_threads) as executor:
         futures = [executor.submit(get_streamer_videos, streamer) for streamer in streamer_list]
         concurrent.futures.wait(futures)
