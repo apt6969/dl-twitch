@@ -318,7 +318,7 @@ def get_profile_picture(streamer):
             print(e)
             print(f"could not save screenshot for {streamer} on {get_timestamp()}")
 
-def thread_profile_picture(streamer_list, max_threads=10):
+def thread_profile_picture(streamer_list, max_threads=45):
     with concurrent.futures.ThreadPoolExecutor(max_workers=max_threads) as executor:
         futures = [executor.submit(get_profile_picture, streamer) for streamer in streamer_list]
         concurrent.futures.wait(futures)
