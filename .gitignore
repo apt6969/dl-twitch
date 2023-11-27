@@ -2,3 +2,7 @@ screenshots/
 twitch.db
 __pycache__/
 .DS_Store
+run_log.csv
+log.sh
+twitch.db-journal*
+__pycache__/*
