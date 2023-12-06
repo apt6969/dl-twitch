@@ -271,6 +271,7 @@ def is_english(string):
 
 def get_profile_picture(streamer):
     if is_english(streamer):
+        time.sleep(random.uniform(0.1, 2.3))
         try:
             chromedriver_executable = Service('chromedriver')
             options = Options()
@@ -318,7 +319,7 @@ def get_profile_picture(streamer):
             print(e)
             print(f"could not save screenshot for {streamer} on {get_timestamp()}")
 
-def thread_profile_picture(streamer_list, max_threads=45):
+def thread_profile_picture(streamer_list, max_threads=80):
     with concurrent.futures.ThreadPoolExecutor(max_workers=max_threads) as executor:
         futures = [executor.submit(get_profile_picture, streamer) for streamer in streamer_list]
         concurrent.futures.wait(futures)
@@ -351,7 +352,7 @@ if __name__ == "__main__":
     if args.pages:
         pages_to_dl = args.pages
     else:
-        pages_to_dl = 100
+        pages_to_dl = 300
     game_ids_list = []
     print("Games query:", games_query)
     if games_query:
@@ -367,7 +368,7 @@ if __name__ == "__main__":
     if threads:
         pass
     else:
-        threads = 15
+        threads = 45
     streamers_args = args.streamers
     if authorization:
         auth = 'Bearer ' + authorization
