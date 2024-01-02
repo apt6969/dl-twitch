@@ -352,7 +352,7 @@ if __name__ == "__main__":
     if args.pages:
         pages_to_dl = args.pages
     else:
-        pages_to_dl = 300
+        pages_to_dl = 100
     game_ids_list = []
     print("Games query:", games_query)
     if games_query:
