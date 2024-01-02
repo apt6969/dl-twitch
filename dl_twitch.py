@@ -352,7 +352,7 @@ if __name__ == "__main__":
     if args.pages:
         pages_to_dl = args.pages
     else:
-        pages_to_dl = 300
+        pages_to_dl = 100
     game_ids_list = []
     print("Games query:", games_query)
     if games_query:
@@ -368,7 +368,7 @@ if __name__ == "__main__":
     if threads:
         pass
     else:
-        threads = 45
+        threads = 10
     streamers_args = args.streamers
     if authorization:
         auth = 'Bearer ' + authorization
