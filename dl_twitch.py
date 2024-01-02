@@ -368,7 +368,7 @@ if __name__ == "__main__":
     if threads:
         pass
     else:
-        threads = 45
+        threads = 10
     streamers_args = args.streamers
     if authorization:
         auth = 'Bearer ' + authorization
