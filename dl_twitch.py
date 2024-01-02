@@ -66,7 +66,7 @@ def get_user_id(user_name):
     params = {
         'login': user_name,
     }
-    try:    
+    try:
         response = get_response(url, params)
         return(response.json()['data'][0]['id'])
     except Exception as e:
@@ -110,7 +110,7 @@ def get_top_streams(conn, game_id=None, pages=100):
             print(f"Error in get_top_streams() for {i['user_name']}")
     
     for i in range(pages):
-        try: 
+        try:
             pag = response.json()['pagination']['cursor']
         except Exception as e:
             print(e)
@@ -158,7 +158,7 @@ def get_streamer_videos(user_name):
         'first' : 100,
         'user_id': user_id,
     }
-    try:    
+    try:
         response = get_response(url, params)
         data = response.json()
         if manage_db.is_streamer_in_users(conn, user_name) == False:
@@ -255,7 +255,7 @@ def dl_videos(video_list, user_name, max_threads=10):
                     manage_db.set_video_downloaded(conn, manage_db.get_table_name(user_name), v, {'downloaded_yet': 1})
             except Exception as e:
                 print(e)
-                list(executor.map(download_video, vl[i*max_threads:len(video_list)-1], path_list[i*max_threads:len(video_list)-1]))  
+                list(executor.map(download_video, vl[i*max_threads:len(video_list)-1], path_list[i*max_threads:len(video_list)-1]))
                 manage_folders.rename_videos(user_name)
                 for v in video_list[i*max_threads:len(video_list)-1]:
                     manage_db.set_video_downloaded(conn, manage_db.get_table_name(user_name), v, {'downloaded_yet': 1})
@@ -277,11 +277,11 @@ def get_profile_picture(streamer):
             options = Options()
             options.add_experimental_option('excludeSwitches', ['enable-automation'])
             options.add_experimental_option('useAutomationExtension', False)
-            options.add_argument("--headless") 
+            options.add_argument("--headless")
             options.add_argument("--no-sandbox")
             options.add_argument("--incognito")
             options.add_argument("--disable-dev-shm-usage")
-            options.add_argument("--disable-blink-features=AutomationControlled") 
+            options.add_argument("--disable-blink-features=AutomationControlled")
             options.add_argument("--no-sandbox")
             options.add_argument("--disable-extensions")
             options.add_argument('--ignore-ssl-errors')
@@ -319,7 +319,7 @@ def get_profile_picture(streamer):
             print(e)
             print(f"could not save screenshot for {streamer} on {get_timestamp()}")
 
-def thread_profile_picture(streamer_list, max_threads=80):
+def thread_profile_picture(streamer_list, max_threads=160):
     with concurrent.futures.ThreadPoolExecutor(max_workers=max_threads) as executor:
         futures = [executor.submit(get_profile_picture, streamer) for streamer in streamer_list]
         concurrent.futures.wait(futures)
