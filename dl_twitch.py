@@ -352,7 +352,7 @@ if __name__ == "__main__":
     if args.pages:
         pages_to_dl = args.pages
     else:
-        pages_to_dl = 100
+        pages_to_dl = 300
     game_ids_list = []
     print("Games query:", games_query)
     if games_query:
@@ -409,7 +409,7 @@ if __name__ == "__main__":
                 streamer_set.add(streamer)
             print(f"Len streamer set is {len(streamer_set)}")
 
-    if args.TS or pages_to_dl != 100:
+    if args.TS or pages_to_dl != 300:
         top_streamers = get_top_streams(conn, None, pages_to_dl)
         for streamer in top_streamers:
             streamer_set.add(streamer)
