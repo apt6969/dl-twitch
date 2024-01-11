@@ -20,8 +20,6 @@ import get_user
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
-# from selenium.webdriver.common.by import By
-# from selenium.webdriver import ActionChains
 
 user_agent_list = ['Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36', 'Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 13_4_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36']
 
@@ -31,16 +29,14 @@ def full_page_screenshot(driver):
     last_height = driver.execute_script("return document.body.scrollHeight")
     parts = []
     while True:
-        driver.execute_script("window.scrollTo(0, document.body.scrollHeight);") # Scroll down to bottom
+        driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
         time.sleep(random.uniform(2.1, 2.9)) # Wait to load page
         part = Image.open(io.BytesIO(driver.get_screenshot_as_png()))
         parts.append(part)
-        # Calculate new scroll height and compare with last scroll height
         new_height = driver.execute_script("return document.body.scrollHeight")
         if new_height == last_height:
             break
         last_height = new_height
-    # Combine images into one
     full_img = Image.new('RGB', (parts[0].width, sum(p.height for p in parts)))
     offset = 0
     for part in parts:
@@ -92,7 +88,6 @@ def get_top_streams(conn, game_id=None, pages=100):
             user_name = i['user_name'].lower()
             table_name = manage_db.get_table_name(user_name)
             if manage_db.check_table_exists(conn, table_name):
-                # print(f"curr viewer count is {i['viewer_count']} for {user_name}")
                 try:
                     max_viewer_count = max(i['viewer_count'], manage_db.get_max_viewer_count(conn, user_name))
                 except Exception as e:
@@ -125,7 +120,7 @@ def get_top_streams(conn, game_id=None, pages=100):
                 user_name = i['user_name'].lower()
                 table_name = manage_db.get_table_name(user_name)
                 if manage_db.check_table_exists(conn, table_name):
-                    # print(f"curr viewer count is {i['viewer_count']} for {user_name}")
+  
                     try:
                         max_viewer_count = max(i['viewer_count'], manage_db.get_max_viewer_count(conn, user_name))
                     except Exception as e:
@@ -238,7 +233,6 @@ def get_streamer_videos(user_name):
 
 def download_video(url, user_name):
     os.system(f"yt-dlp --netrc-cmd '' -f 'bv*[height=480]+ba' --extractor-retries infinite -P videos/{user_name} {url}")
-    #os.system(f"yt-dlp -f 'bv*[height=480]+ba' --extractor-retries infinite -P videos/{user_name} {url}")
 
 def dl_videos(video_list, user_name, max_threads=10):
     vl = []
@@ -293,10 +287,8 @@ def get_profile_picture(streamer):
             driver.execute_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
             driver.set_window_size(1920, 1080*3)
             driver.get(f"https://twitch.tv/{streamer}")
-            #options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36")
             user_agent = driver.execute_script("return window.navigator.userAgent")
             is_webdriver = driver.execute_script("return window.navigator.webdriver")
-            # Print the user agent
             print("User Agent:", user_agent)
             print("Webdriver is", is_webdriver)
             time.sleep(random.uniform(5.5, 6.5))
@@ -305,16 +297,12 @@ def get_profile_picture(streamer):
             except:
                 pass
             driver.save_screenshot(f"screenshots/{streamer}/{get_timestamp()}_{streamer}.png")
-            # image = full_page_screenshot(driver)
-            # image.save(f"screenshots/{streamer}/{get_timestamp()}_{streamer}.png")
             print(f"saved screenshot for {streamer} on {get_timestamp()}")
             driver.get(f"https://twitch.tv/{streamer}/about")
             time.sleep(random.uniform(5.5, 6.5))
             os.system(f"mkdir screenshots/{streamer}/about > /dev/null 2>&1")
             driver.save_screenshot(f"screenshots/{streamer}/about/{get_timestamp()}_{streamer}.png")
             print(f"saved screenshot for {streamer} about section on {get_timestamp()}")
-            # image = full_page_screenshot(driver)
-            # image.save(f"screenshots/{streamer}/{get_timestamp()}_{streamer}.png")
         except Exception as e:
             print(e)
             print(f"could not save screenshot for {streamer} on {get_timestamp()}")
@@ -332,14 +320,14 @@ def get_timestamp():
     return timestr
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='Usage of dl_twitch.py:')
-    parser.add_argument('streamers', nargs=argparse.REMAINDER, help='command line arugments for specific streamer names')
-    parser.add_argument('-NV', action='store_true', help='no flag for videos to download')
-    parser.add_argument('-TS', action='store_true', help='get top streamers and update all existing metadata')
-    parser.add_argument('-NS', action='store_true', help='no flag for no screenshots to download')
-    parser.add_argument('-USERS', action='store_true', help='build users pickle')
-    parser.add_argument('-STAFF', action='store_true', help='get twitch staff data')
-    # parser.add_argument('-CLEAN', action='store_true', help='clean up all folders and files and start fresh')
+    parser = argparse.ArgumentParser(description='Usage of dl_twitch.py: incomplete; taking a RE exploit dump')
+    parser.add_argument('--streamers', nargs=argparse.REMAINDER, help='command line arugments for specific streamer names')
+    parser.add_argument('--NV', action='store_true', help='no flag for videos to download')
+    parser.add_argument('--TS', action='store_true', help='get top streamers and update all existing metadata')
+    parser.add_argument('--NS', action='store_true', help='no flag for no screenshots to download')
+    #parser.add_argument('--USERS', action='store_true', help='build users pickle')
+    parser.add_argument('--STAFF', action='store_true', help='get twitch staff data')
+    parser.add_argument('--CLEAN', action='store_true', help='clean up all folders and files and start fresh')
     parser.add_argument('--threads', type=int, help='number of threads to use')
     parser.add_argument('--pages', type=int, help='how many pages of streamers do you want to downlaod? 1 page = 100 streamers.')
     parser.add_argument('--authorization', type=str, help='https://twitchtokengenerator.com/')
@@ -363,12 +351,11 @@ if __name__ == "__main__":
             if games_query.lower() in game.lower():
                 game_ids_list.append(top_games[game]['id'])
     print("Game IDs List: ", game_ids_list)
-    #time.sleep(60)
     threads = args.threads
     if threads:
         pass
     else:
-        threads = 10
+        threads = 69
     streamers_args = args.streamers
     if authorization:
         auth = 'Bearer ' + authorization
