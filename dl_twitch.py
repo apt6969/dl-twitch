@@ -3,6 +3,7 @@ import os
 import requests
 import argparse
 import concurrent.futures
+import secrets
 import random
 import time
 from datetime import datetime
@@ -30,7 +31,7 @@ def full_page_screenshot(driver):
     parts = []
     while True:
         driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-        time.sleep(random.uniform(2.1, 2.9)) # Wait to load page
+        time.sleep(secrets.uniform(2.1, 2.9)) # Wait to load page
         part = Image.open(io.BytesIO(driver.get_screenshot_as_png()))
         parts.append(part)
         new_height = driver.execute_script("return document.body.scrollHeight")
@@ -355,7 +356,7 @@ if __name__ == "__main__":
     if threads:
         pass
     else:
-        threads = 69
+        threads = 10
     streamers_args = args.streamers
     if authorization:
         auth = 'Bearer ' + authorization
