@@ -51,8 +51,8 @@ def get_top_games(auth, client_id, top_games={}):
         return top_games
 
 def main():
-    auth = 'Bearer 34o73hb40ag2g50sz38wjgyb1rjpmw'
-    client_id = '43zeiffzo1vaceatiyp58fzbynqhlq'
+    auth = 'Bearer 6v91ackg29ptj0c8nmx5igrp9x4whq'
+    client_id = 'gp762nuuoqcoxypju8c569th9wz7q5'
     if os.path.exists("top_games.pickle"):
         with open("top_games.pickle", "rb") as f:
             top_games = pickle.load(f)

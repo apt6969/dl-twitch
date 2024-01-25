@@ -43,8 +43,8 @@ def print_all_users(users):
         print(users[user])
 
 def get_users(user_list):
-    auth = 'Bearer 34o73hb40ag2g50sz38wjgyb1rjpmw'
-    client_id = '43zeiffzo1vaceatiyp58fzbynqhlq'
+    auth = 'Bearer 6v91ackg29ptj0c8nmx5igrp9x4whq'
+    client_id = 'gp762nuuoqcoxypju8c569th9wz7q5'
     if os.path.exists("users.pickle"):
         with open("users.pickle", "rb") as f:
             users = pickle.load(f)
