@@ -6,3 +6,4 @@ run_log.csv
 log.sh
 twitch.db-journal*
 __pycache__/*
+videos/
