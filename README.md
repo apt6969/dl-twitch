@@ -19,7 +19,7 @@ You get your client-id and access tokens here: https://twitchtokengenerator.com/
 
 Pre-requisites: python(3), selenium, and Google Chrome (or for testing or whatever works with chromedriver) + chromedriver
 
-https://chromedriver.chromium.org/downloads
+https://chromedriver.chromium.org/downloads (use wget rather than curl -O or whatever... same i think..... wget is a wrapper and a parser....)
 
 also yt-dlp (use pip install or brew install or apt install or choco or rpm or whatever) and ffmpeg (same) if you want to download videos. can't include ffmpeg in requirements.txt unless i write it PURELY in python or cpython.. :(((( 
 
