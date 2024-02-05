@@ -17,11 +17,12 @@ You get your client-id and access tokens here: https://twitchtokengenerator.com/
 
 ---
 
-Pre-requisites: python(3), selenium, and Google Chrome; also yt-dlp and ffmpeg if you want to download videos.
+Pre-requisites: python(3), selenium, and Google Chrome (or for testing or whatever works with chromedriver) + chromedriver
 
-OR run sh INSTALL.sh
+https://chromedriver.chromium.org/downloads
 
-Then install Google Chrome manually if you haven't already since it's hard to automate the process on MacOS for you.
+also yt-dlp (use pip install or brew install or apt install or choco or rpm or whatever) and ffmpeg (same) if you want to download videos. can't include ffmpeg in requirements.txt unless i write it PURELY in python or cpython.. :(((( 
+
 
 ---
 
